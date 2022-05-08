@@ -63,7 +63,7 @@ public class User implements Serializable {
 	}
 
 	@JsonIgnore
-	// bi-directional many-to-one association to StudentCours
+	// bi-directional many-to-one association to User Course
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<UserCourse> userCourses;
 
@@ -132,7 +132,7 @@ public class User implements Serializable {
 		return this.userCourses;
 	}
 
-	public void setStudentCourses(List<UserCourse> userCourses) {
+	public void setUserCourses(List<UserCourse> userCourses) {
 		this.userCourses = userCourses;
 	}
 
@@ -143,7 +143,7 @@ public class User implements Serializable {
 		return userCourse;
 	}
 
-	public UserCourse removeStudentCours(UserCourse userCourse) {
+	public UserCourse removeUserCours(UserCourse userCourse) {
 		getUserCourses().remove(userCourse);
 		userCourse.setUser(null);
 

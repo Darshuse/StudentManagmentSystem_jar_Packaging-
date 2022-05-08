@@ -28,6 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.boubyan.me.Student_Managment_System.entity.Course;
 import com.boubyan.me.Student_Managment_System.entity.User;
 import com.boubyan.me.Student_Managment_System.entity.UserCourse;
+import com.boubyan.me.Student_Managment_System.exception.CourseNotFoundException;
 import com.boubyan.me.Student_Managment_System.service.CourseServiceImpl;
 
 import net.spy.memcached.MemcachedClient;
@@ -48,19 +49,22 @@ public class CourseController {
 	@GetMapping
 	public List<Course> findAll() {
 		List<Course> cachedCourseList;
-		 cachedCourseList = (List<Course>) memcachedClient.get("all_courses");
-		if(cachedCourseList!=null || !cachedCourseList.isEmpty()) {
+		cachedCourseList = (List<Course>) memcachedClient.get("all_courses");
+		if (cachedCourseList != null || !cachedCourseList.isEmpty()) {
 			return cachedCourseList;
 		}
-		
+
 		List<Course> courseList = service.findAll();
-		cachedCourseList=(List<Course>) memcachedClient.set("all_courses", 0, courseList);
+		if (courseList == null || courseList.isEmpty())
+			throw new CourseNotFoundException("empt course list");
+		cachedCourseList = (List<Course>) memcachedClient.set("all_courses", 0, courseList);
 		return courseList;
 	}
 
 	@GetMapping(path = "/{id}")
 	public Course findById(@PathVariable int id) {
-		return service.findById(id);
+		Course course = service.findById(id);
+		return course;
 	}
 
 	@PostMapping
