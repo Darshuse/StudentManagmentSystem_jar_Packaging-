@@ -18,12 +18,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.boubyan.me.Student_Managment_System.service.UserDetailsServiceImpl;
 
-public class AuthTokenFilter extends OncePerRequestFilter{
-	
+public class AuthTokenFilter extends OncePerRequestFilter {
+
 	@Autowired
 	@Qualifier("jwtUtil")
 	private JwtUtils jwtUtils;
-	
+
 	@Autowired
 	@Qualifier("detailsService")
 	private UserDetailsServiceImpl userDetailsService;
@@ -36,7 +36,7 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
-				UserDetails userdetails =userDetailsService.loadUserByUsername(username);
+				UserDetails userdetails = userDetailsService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userdetails, null, userdetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -46,9 +46,9 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 			logger.error("Cannot set user authentication: {}", e);
 		}
 		filterChain.doFilter(request, response);
-		
+
 	}
-	
+
 	private String parseJwt(HttpServletRequest request) {
 		String headerAuth = request.getHeader("Authorization");
 		if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {

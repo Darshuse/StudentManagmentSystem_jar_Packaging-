@@ -9,6 +9,7 @@ import com.boubyan.me.Student_Managment_System.entity.ERole;
 import com.boubyan.me.Student_Managment_System.entity.Role;
 import com.boubyan.me.Student_Managment_System.exception.RoleNotFoundException;
 import com.boubyan.me.Student_Managment_System.repository.RoleRepository;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -18,8 +19,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role findByRoleName(ERole roleName) {
 		// TODO Auto-generated method stub
-		return repo.findByRoleName(roleName)
-				.orElseThrow(() -> new RoleNotFoundException("Error: Role is not found."));
+		return repo.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Error: Role is not found."));
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class RoleServiceImpl implements RoleService {
 			updatedRole.setRoleName(role.getRoleName());
 			save(updatedRole);
 		}
-		
-		return updatedRole ;
+
+		return updatedRole;
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Embeddable
 public class UserPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	private int id;
@@ -18,15 +18,19 @@ public class UserPK implements Serializable {
 
 	public UserPK() {
 	}
+
 	public int getId() {
 		return this.id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getUser() {
 		return this.user;
 	}
+
 	public void setUser(String user) {
 		this.user = user;
 	}
@@ -38,10 +42,8 @@ public class UserPK implements Serializable {
 		if (!(other instanceof UserPK)) {
 			return false;
 		}
-		UserPK castOther = (UserPK)other;
-		return 
-			(this.id == castOther.id)
-			&& this.user.equals(castOther.user);
+		UserPK castOther = (UserPK) other;
+		return (this.id == castOther.id) && this.user.equals(castOther.user);
 	}
 
 	public int hashCode() {
@@ -49,7 +51,7 @@ public class UserPK implements Serializable {
 		int hash = 17;
 		hash = hash * prime + this.id;
 		hash = hash * prime + this.user.hashCode();
-		
+
 		return hash;
 	}
 }

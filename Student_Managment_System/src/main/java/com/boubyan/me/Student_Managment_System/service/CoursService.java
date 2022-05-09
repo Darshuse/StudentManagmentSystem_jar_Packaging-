@@ -21,9 +21,7 @@ public interface CoursService {
 	public UserCourse register(Course course);
 
 	public List<User> findUserList(int courseId);
-	
+
 	public void cancel(int courseId);
-	
-	
 
 }

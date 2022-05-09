@@ -23,20 +23,18 @@ public class UserCourseServiceImpl implements UserCourseService {
 		List<Course> studentCourseList = repo.findByUser(user.getId());
 		return studentCourseList;
 	}
-	
-	
 
 	@Override
 	public UserCourse register(UserCourse userCourse) {
 		// TODO Auto-generated method stub
-		return  repo.save(userCourse);
+		return repo.save(userCourse);
 	}
 
 	@Override
-	public void cancel(Course course,User user) {
+	public void cancel(Course course, User user) {
 		// TODO Auto-generated method stub
-		Optional<UserCourse> userCourse=repo.findByUserAndCourse(user.getId(),course.getId());
-       repo.deleteByUserAndCourse(user.getId(),course.getId());
+		Optional<UserCourse> userCourse = repo.findByUserAndCourse(user.getId(), course.getId());
+		repo.deleteByUserAndCourse(user.getId(), course.getId());
 	}
 
 	@Override
@@ -46,15 +44,10 @@ public class UserCourseServiceImpl implements UserCourseService {
 		return userList;
 	}
 
-
-
 	@Override
 	public UserCourse findById(int userCourse) {
 		// TODO Auto-generated method stub
 		return repo.findById(userCourse).orElse(null);
 	}
-
-
-
 
 }

@@ -1,4 +1,5 @@
 package com.boubyan.me.Student_Managment_System.config.security.jwt;
+
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,24 +19,25 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component("jwtUtil")
 public class JwtUtils {
 
-	
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 	@Value("${boubyan.me.app.jwtSecret}")
 	private String jwtSecret;
 	@Value("${boubyan.me.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
+
 	public String generateJwtToken(Authentication authentication) {
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-		return Jwts.builder()
-				.setSubject((userPrincipal.getFirstname()))
-				.setIssuedAt(new Date())
+		return Jwts.builder().setSubject((userPrincipal.getFirstname())).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret)
-				.compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
+
 	public String getUserNameFromJwtToken(String token) {
-		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+		return Jwts.parser()
+				.setSigningKey(jwtSecret)
+				.parseClaimsJws(token).getBody().getSubject();
 	}
+
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

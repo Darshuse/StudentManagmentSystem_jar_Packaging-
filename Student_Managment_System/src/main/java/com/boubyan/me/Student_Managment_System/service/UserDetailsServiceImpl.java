@@ -12,10 +12,9 @@ import com.boubyan.me.Student_Managment_System.repository.UserRepository;
 @Service("detailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	
-
 	@Autowired
 	UserRepository userRepo;
+
 	@Override
 	@Transactional
 	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String userName)
@@ -23,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		// TODO Auto-generated method stub
 		User user = userRepo.findByFirstName(userName)
 				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userName));
-		return  UserDetailsImpl.build(user);
+		return UserDetailsImpl.build(user);
 	}
 
 }

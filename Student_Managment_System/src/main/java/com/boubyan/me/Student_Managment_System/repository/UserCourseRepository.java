@@ -12,19 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.boubyan.me.Student_Managment_System.entity.Course;
 import com.boubyan.me.Student_Managment_System.entity.User;
 import com.boubyan.me.Student_Managment_System.entity.UserCourse;
+
 @Repository
 @Transactional
 public interface UserCourseRepository extends JpaRepository<UserCourse, Integer> {
 
 	@Query("SELECT sc.course FROM UserCourse sc  where sc.user.id = ?1")
 	public List<Course> findByUser(int userId);
-	
+
 	@Query("SELECT sc.user FROM UserCourse sc  where sc.course.id = ?1")
 	public List<User> findByCourse(int courseId);
-	
+
 	@Query("SELECT sc FROM UserCourse sc   where  sc.user.id = ?1 and sc.course.id = ?2 ")
-	public Optional<UserCourse> findByUserAndCourse(int userId,int courseId);
+	public Optional<UserCourse> findByUserAndCourse(int userId, int courseId);
+
 	@Modifying
 	@Query(value = "DELETE  FROM UserCourse uc   where  uc.user.id = ?1 and uc.course.id = ?2 ")
-	public void deleteByUserAndCourse(int userId,int courseId);
+	public void deleteByUserAndCourse(int userId, int courseId);
 }

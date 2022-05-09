@@ -10,10 +10,13 @@ import com.boubyan.me.Student_Managment_System.entity.User;
 
 @Repository
 @Transactional
-public interface UserRepository  extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 	Optional<User> findByFirstName(String firstName);
+
 	Optional<User> findByEmail(String email);
+
 	Boolean existsByFirstName(String firstName);
+
 	Boolean existsByEmail(String email);
 
 }
