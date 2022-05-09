@@ -46,7 +46,7 @@ public class Course implements Serializable {
 
 	@JsonIgnore
 	// bi-directional many-to-one association to StudentCours
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "course_id")
 	private List<UserCourse> userCourses;
 

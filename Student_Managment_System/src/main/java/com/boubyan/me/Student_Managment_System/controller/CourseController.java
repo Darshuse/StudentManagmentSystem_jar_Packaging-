@@ -94,7 +94,7 @@ public class CourseController {
 		service.delete(id);
 	}
 
-	@GetMapping(path = "/{id}/students")
+	@GetMapping(path = "/{id}/users")
 	public List<User> findUserList(@PathVariable int id) {
 		return service.findUserList(id);
 	}

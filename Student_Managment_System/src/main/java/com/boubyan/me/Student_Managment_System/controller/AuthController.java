@@ -29,7 +29,6 @@ import com.boubyan.me.Student_Managment_System.payload.request.LoginRequest;
 import com.boubyan.me.Student_Managment_System.payload.request.SignupRequest;
 import com.boubyan.me.Student_Managment_System.payload.request.response.JwtResponse;
 import com.boubyan.me.Student_Managment_System.payload.request.response.MessageResponse;
-import com.boubyan.me.Student_Managment_System.repository.RoleRepository;
 import com.boubyan.me.Student_Managment_System.service.RoleServiceImpl;
 import com.boubyan.me.Student_Managment_System.service.UserDetailsImpl;
 import com.boubyan.me.Student_Managment_System.service.UserServiceImpl;
@@ -75,6 +74,8 @@ public class AuthController {
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()));
+		user.setAge(signUpRequest.getAge());
+		user.setFamilyName(signUpRequest.getFamilyName());
 		user.setUserCourses(null);
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
