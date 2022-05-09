@@ -14,17 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 /**
  * The persistent class for the courses database table.
  * 
  */
 @Entity
-@Table(name="courses")
-@NamedQuery(name="Course.findAll", query="SELECT c FROM Course c")
+@Table(name = "courses")
+@NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
 public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,14 +33,19 @@ public class Course implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="course_description")
+	@NotBlank(message = "description should not be empty ")
+	@Size(min = 10, message = "description should be at least 10 characters ")
+	@Column(name = "course_description")
 	private String courseDescription;
 
-	@Column(name="course_schedule")
+	@NotBlank(message = "course schedule name should not be empty ")
+	@Size(min = 5, message = "course schedule name should be at least 5 characters ")
+
+	@Column(name = "course_schedule")
 	private String courseSchedule;
-	
+
 	@JsonIgnore
-	//bi-directional many-to-one association to StudentCours
+	// bi-directional many-to-one association to StudentCours
 	@OneToMany
 	@JoinColumn(name = "course_id")
 	private List<UserCourse> userCourses;
@@ -70,7 +76,7 @@ public class Course implements Serializable {
 	public void setCourseSchedule(String courseSchedule) {
 		this.courseSchedule = courseSchedule;
 	}
-	
+
 	public List<UserCourse> getUserCourses() {
 		return this.userCourses;
 	}
@@ -92,6 +98,5 @@ public class Course implements Serializable {
 
 		return userCourse;
 	}
-
 
 }

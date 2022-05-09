@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.boubyan.me.Student_Managment_System.entity.Course;
 import com.boubyan.me.Student_Managment_System.entity.User;
 import com.boubyan.me.Student_Managment_System.entity.UserCourse;
-import com.boubyan.me.Student_Managment_System.entity.UserCoursePK;
 import com.boubyan.me.Student_Managment_System.exception.CourseNotFoundException;
 import com.boubyan.me.Student_Managment_System.repository.CourseRepository;
 
